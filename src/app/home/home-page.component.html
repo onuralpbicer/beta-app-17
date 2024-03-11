@@ -1,2 +1,10 @@
-<p>home works!</p>
-<button (click)="logout()">Logout</button>
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="logout()">
+                <ion-icon name="log-out-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content [forceOverscroll]="false"> content </ion-content>
