@@ -29,23 +29,20 @@ export class StorageService {
         const storage = await this.storage.create()
         this._storage = storage
         this.storageReady.next(true)
+        console.log('init finished')
     }
 
     private runWhenReady<T>(
-        innerObservable: Observable<T> | (() => Observable<T>),
+        innerObservable: Observable<T>,
         timeoutDuration?: number,
     ): Observable<T> {
         return this.notifyWhenReady(timeoutDuration).pipe(
-            switchMap(
-                typeof innerObservable === 'function'
-                    ? innerObservable
-                    : () => innerObservable,
-            ),
+            switchMap(() => innerObservable),
         )
     }
 
     public get(key: string) {
-        return this.runWhenReady(() => from(this._storage.get(key)))
+        return this.runWhenReady(from(this._storage.get(key)))
     }
 
     public notifyWhenReady(timeoutDuration?: number) {
@@ -57,14 +54,14 @@ export class StorageService {
     }
 
     public set(key: string, value: string) {
-        return this.runWhenReady(() => from(this._storage.set(key, value)))
+        return this.runWhenReady(from(this._storage.set(key, value)))
     }
 
     public remove(key: string) {
-        return this.runWhenReady(() => from(this._storage.remove(key)))
+        return this.runWhenReady(from(this._storage.remove(key)))
     }
 
     public clear() {
-        return this.runWhenReady(() => from(this._storage.clear()))
+        return this.runWhenReady(from(this._storage.clear()))
     }
 }

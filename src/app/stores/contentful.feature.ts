@@ -13,6 +13,7 @@ import { firstValueFrom } from 'rxjs'
 import { equals, includes } from 'rambda'
 import { environment } from 'src/environments/environment'
 import { delay } from '../shared/util'
+import { persistSignalStore } from './persistence'
 
 export enum ISyncStatus {
     Initial = 'Initial',
@@ -29,12 +30,21 @@ export interface ISyncState {
 
 const delayTimeout = environment.production ? 1000 : 0
 
+const defaultInitialState: ISyncState = {
+    viewStatus: ISyncStatus.Initial,
+    nextSyncToken: null,
+}
+
+const { getInitialState, withLocalStorage } = persistSignalStore(
+    defaultInitialState,
+    {
+        ['SIGNALSTORE.contentful']: ['nextSyncToken'],
+    },
+)
+
 function withContentful() {
     return signalStoreFeature(
-        withState<ISyncState>({
-            viewStatus: ISyncStatus.Initial,
-            nextSyncToken: null,
-        }),
+        withState(getInitialState()),
         withComputed((store) => ({
             isInitial: computed(() =>
                 equals(store.viewStatus(), ISyncStatus.Initial),
@@ -87,6 +97,7 @@ function withContentful() {
         })),
         withHooks({
             onInit: (store, syncService = inject(SyncService)) => {
+                console.log('main init')
                 if (store.isInitial()) {
                     syncService.goToSync()
                 }
@@ -99,4 +110,5 @@ function withContentful() {
 export const ContentfulStore = signalStore(
     { providedIn: 'root' },
     withContentful(),
+    withLocalStorage(),
 )
