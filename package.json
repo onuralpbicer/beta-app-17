@@ -26,6 +26,7 @@
         "@capacitor/angular": "^2.0.3",
         "@capacitor/core": "latest",
         "@capacitor/ios": "^5.7.2",
+        "@ionic/angular": "^7.7.4",
         "@nx/angular": "18.0.8",
         "rxjs": "~7.8.0",
         "tslib": "^2.3.0",
@@ -67,7 +68,8 @@
         "prettier": "^2.6.2",
         "ts-jest": "^29.1.0",
         "ts-node": "10.9.1",
-        "typescript": "~5.3.2"
+        "typescript": "~5.3.2",
+        "@ionic/angular-toolkit": "latest"
     },
     "nx": {
         "includedScripts": []
