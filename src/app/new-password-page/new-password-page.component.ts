@@ -5,13 +5,13 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { AuthService } from '../shared/auth.service'
 
 @Component({
-    selector: 'beta-app-new-password',
+    selector: 'beta-app-new-password-page',
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule],
-    templateUrl: './new-password.component.html',
-    styleUrl: './new-password.component.scss',
+    templateUrl: './new-password-page.component.html',
+    styleUrl: './new-password-page.component.scss',
 })
-export class NewPasswordComponent {
+export class NewPasswordPageComponent {
     private fb = inject(FormBuilder)
     private authService = inject(AuthService)
 

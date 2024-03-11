@@ -10,14 +10,16 @@ export const appRoutes: Route[] = [
         path: 'login',
         canActivate: [notAuthGuard],
         loadComponent: () =>
-            import('./login/login.component').then((m) => m.LoginComponent),
+            import('./login-page/login-page.component').then(
+                (m) => m.LoginPageComponent,
+            ),
     },
     {
         path: 'new-password',
         canActivate: [requireNewPasswordGuard, notAuthGuard],
         loadComponent: () =>
-            import('./new-password/new-password.component').then(
-                (m) => m.NewPasswordComponent,
+            import('./new-password-page/new-password-page.component').then(
+                (m) => m.NewPasswordPageComponent,
             ),
     },
     {

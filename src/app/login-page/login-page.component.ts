@@ -12,7 +12,7 @@ import { AuthService } from '../shared/auth.service'
 import { ViewStatus } from '../shared/types'
 
 @Component({
-    selector: 'beta-app-login',
+    selector: 'beta-app-login-page',
     standalone: true,
     imports: [
         IonContent,
@@ -23,10 +23,10 @@ import { ViewStatus } from '../shared/types'
         IonButton,
         IonSpinner,
     ],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss',
+    templateUrl: './login-page.component.html',
+    styleUrl: './login-page.component.scss',
 })
-export class LoginComponent {
+export class LoginPageComponent {
     private fb = inject(FormBuilder)
     private authService = inject(AuthService)
 
