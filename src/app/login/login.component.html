@@ -15,8 +15,15 @@
                 labelPlacement="floating"
             ></ion-input>
 
-            <ion-button type="submit" expand="block" [disabled]="form.invalid">
-                <ion-spinner name="lines-sharp-small"></ion-spinner>
+            <ion-button
+                type="submit"
+                expand="block"
+                [disabled]="form.invalid || viewStatus === ViewStatus.LOADING"
+            >
+                <ion-spinner
+                    *ngIf="viewStatus === ViewStatus.LOADING; else buttonText"
+                    name="lines-sharp-small"
+                ></ion-spinner>
                 <ng-template #buttonText> Giriş Yap </ng-template>
             </ion-button>
         </form>

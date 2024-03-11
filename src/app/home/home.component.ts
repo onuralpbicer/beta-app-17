@@ -1,5 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { AuthService } from '../shared/auth.service'
 
 @Component({
     selector: 'beta-app-home',
@@ -8,4 +9,10 @@ import { CommonModule } from '@angular/common'
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
 })
-export class HomeComponent {}
+export class HomeComponent {
+    private authService = inject(AuthService)
+
+    logout() {
+        this.authService.logout()
+    }
+}

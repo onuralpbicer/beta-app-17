@@ -8,6 +8,8 @@ import {
     IonInput,
     IonSpinner,
 } from '@ionic/angular/standalone'
+import { AuthService } from '../shared/auth.service'
+import { ViewStatus } from '../shared/types'
 
 @Component({
     selector: 'beta-app-login',
@@ -26,6 +28,10 @@ import {
 })
 export class LoginComponent {
     private fb = inject(FormBuilder)
+    private authService = inject(AuthService)
+
+    public viewStatus = ViewStatus.INITIAL
+    public readonly ViewStatus = ViewStatus
 
     public form = this.fb.group({
         username: ['', Validators.required],
@@ -35,6 +41,20 @@ export class LoginComponent {
     async handleSubmit() {
         if (this.form.invalid) return
 
-        console.log(this.form.value)
+        const { username, password } = this.form.value
+
+        if (!username || !password) {
+            return
+        }
+
+        this.viewStatus = ViewStatus.LOADING
+
+        try {
+            await this.authService.login(username, password)
+            this.viewStatus = ViewStatus.SUCCESS
+        } catch (error) {
+            console.error(error)
+            this.viewStatus = ViewStatus.FAILURE
+        }
     }
 }
