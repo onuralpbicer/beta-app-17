@@ -10,7 +10,10 @@ export const appConfig: ApplicationConfig = {
     providers: [
         provideHttpClient(),
         provideRouter(appRoutes, withComponentInputBinding()),
-        provideIonicAngular({}),
+        provideIonicAngular({
+            backButtonDefaultHref: '/',
+            backButtonText: '',
+        }),
         importProvidersFrom(
             IonicStorageModule.forRoot({
                 driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],

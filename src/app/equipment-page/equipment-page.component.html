@@ -1,1 +1,13 @@
-<p>equipment-page works!</p>
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button />
+        </ion-buttons>
+        @if (entry(); as entry) {
+        <ion-title>
+            {{ entry?.fields?.id }}
+        </ion-title>
+        }
+    </ion-toolbar>
+</ion-header>
+<ion-content [forceOverscroll]="false" class="ion-padding"></ion-content>

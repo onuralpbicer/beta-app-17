@@ -41,4 +41,8 @@ export class EquipmentsService {
             items,
         }
     }
+
+    async getEquipment(id: string) {
+        return this.syncService.getEntry<IEquipmentFields>(id)
+    }
 }
