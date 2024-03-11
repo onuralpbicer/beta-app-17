@@ -24,7 +24,9 @@ export const appRoutes: Route[] = [
         path: 'home',
         canActivate: [authGuard],
         loadComponent: () =>
-            import('./home/home.component').then((m) => m.HomeComponent),
+            import('./home/home-page.component').then(
+                (m) => m.HomePageComponent,
+            ),
     },
     {
         path: '',
