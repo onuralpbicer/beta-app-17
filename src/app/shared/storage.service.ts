@@ -29,7 +29,6 @@ export class StorageService {
         const storage = await this.storage.create()
         this._storage = storage
         this.storageReady.next(true)
-        console.log('init finished')
     }
 
     private runWhenReady<T>(

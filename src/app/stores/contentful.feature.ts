@@ -97,7 +97,6 @@ function withContentful() {
         })),
         withHooks({
             onInit: (store, syncService = inject(SyncService)) => {
-                console.log('main init')
                 if (store.isInitial()) {
                     syncService.goToSync()
                 }
