@@ -37,6 +37,19 @@ export const appRoutes: Route[] = [
             ),
     },
     {
+        path: 'equipment-type',
+        canActivate: [authGuard],
+        children: [
+            {
+                path: ':id',
+                loadComponent: () =>
+                    import('./equipment-type/equipment-type.component').then(
+                        (m) => m.EquipmentTypeComponent,
+                    ),
+            },
+        ],
+    },
+    {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

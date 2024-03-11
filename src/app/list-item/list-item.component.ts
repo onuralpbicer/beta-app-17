@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { IonItem, IonLabel } from '@ionic/angular/standalone'
+import { IonItem, IonLabel, NavController } from '@ionic/angular/standalone'
 
 @Component({
     selector: 'beta-app-list-item',
@@ -10,6 +10,12 @@ import { IonItem, IonLabel } from '@ionic/angular/standalone'
     styleUrl: './list-item.component.scss',
 })
 export class ListItemComponent {
-    @Input() id!: string
+    private navController = inject(NavController)
+
+    @Input() href!: string
     @Input() name!: string
+
+    handleClick() {
+        this.navController.navigateForward(this.href)
+    }
 }

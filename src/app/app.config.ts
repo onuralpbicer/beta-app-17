@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core'
-import { provideRouter } from '@angular/router'
+import { provideRouter, withComponentInputBinding } from '@angular/router'
 import { appRoutes } from './app.routes'
 import { provideIonicAngular } from '@ionic/angular/standalone'
 import { provideHttpClient } from '@angular/common/http'
@@ -9,7 +9,7 @@ import { Drivers } from '@ionic/storage'
 export const appConfig: ApplicationConfig = {
     providers: [
         provideHttpClient(),
-        provideRouter(appRoutes),
+        provideRouter(appRoutes, withComponentInputBinding()),
         provideIonicAngular({}),
         importProvidersFrom(
             IonicStorageModule.forRoot({

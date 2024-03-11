@@ -54,7 +54,12 @@ export class HomePageComponent implements OnInit {
     public items = computed(() => {
         const loading = this.isLoading()
         if (loading) return []
-        return this.entry()?.items ?? []
+        return (
+            this.entry()?.items?.map((item) => ({
+                ...item,
+                href: '/equipment-type/' + item.id,
+            })) ?? []
+        )
     })
 
     async ngOnInit() {
