@@ -12,11 +12,7 @@ import {
 import { addIcons } from 'ionicons'
 import { logOutOutline } from 'ionicons/icons'
 import { ContentfulStore } from '../stores/contentful.feature'
-import { SyncService } from '../shared/sync.service'
-import {
-    IContentfulContent,
-    IEquipmentTypeListFields,
-} from '../shared/contentful'
+import { EquipmentsService } from '../shared/equipments.service'
 
 addIcons({
     logOutOutline,
@@ -40,18 +36,15 @@ addIcons({
 export class HomePageComponent implements OnInit {
     private authService = inject(AuthService)
     private contentfulStore = inject(ContentfulStore)
-    private syncService = inject(SyncService)
+    private equipmentsService = inject(EquipmentsService)
 
     public syncStatus = this.contentfulStore.viewStatus
     public syncToken = this.contentfulStore.nextSyncToken
 
     async ngOnInit() {
-        console.log('ngOnInit')
-        const entry = await this.syncService.getEntry<IEquipmentTypeListFields>(
-            IContentfulContent.EquipmentTypeList,
-        )
+        const entry = await this.equipmentsService.getEquipmentList()
 
-        console.log(entry.fields, entry.fields.items[0])
+        console.log(entry)
     }
 
     logout() {
