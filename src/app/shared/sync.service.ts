@@ -13,6 +13,7 @@ import { StorageService } from './storage.service'
 import {
     Observable,
     defaultIfEmpty,
+    firstValueFrom,
     forkJoin,
     from,
     map,
@@ -96,19 +97,21 @@ export class SyncService {
         }, {} as any)
     }
 
-    public getAsset(id: string): Observable<string> {
-        return this.storage.get(id)
+    public getAsset(id: string): Promise<string> {
+        return firstValueFrom(this.storage.get(id))
     }
 
     public getEntry<T extends FieldsType>(
         id: string,
-    ): Observable<IContentfulEntry<T>> {
-        return this.storage.get(id).pipe(
-            map((result) => {
-                const entry = JSON.parse(result)
-                const fields = this.getEntryFields<T>(entry)
-                return { ...entry, fields }
-            }),
+    ): Promise<IContentfulEntry<T>> {
+        return firstValueFrom(
+            this.storage.get(id).pipe(
+                map((result) => {
+                    const entry = JSON.parse(result)
+                    const fields = this.getEntryFields<T>(entry)
+                    return { ...entry, fields }
+                }),
+            ),
         )
     }
 

@@ -12,7 +12,7 @@ export enum IContentfulEnvs {
 }
 
 export enum IContentfulContent {
-    EquipmentTypeList = '64du1HBfTqb166SxhWTr33',
+    EquipmentTypeList = '4j6hiYuDPwvsEmcVwxdZkY',
 }
 
 export type ISyncCollection = SyncCollection<
@@ -27,26 +27,27 @@ export type IContentfulEntry<T extends FieldsType> = Entry<
 >
 export type ExtractType<T extends FieldsType> = IContentfulEntry<T>['fields']
 
-export interface IEquipmentFields {
-    name: EntryFieldTypes.Text
-    body: EntryFieldTypes.Text
-    maintenanceTasks: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
-}
+// export interface IEquipmentFields {
+//     name: EntryFieldTypes.Text
+//     body: EntryFieldTypes.Text
+//     maintenanceTasks: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
+// }
 
-export type IEquipmentEntry = IContentfulEntry<IEquipmentFields>
+// export type IEquipmentEntry = IContentfulEntry<IEquipmentFields>
 
 export interface IEquipmentTypeFields {
     name: EntryFieldTypes.Text
-    equipments: EntryFieldTypes.Array<
-        EntryFieldTypes.EntryLink<EntrySkeletonType<IEquipmentFields>>
-    >
+    items: Array<unknown>
+    // equipments: EntryFieldTypes.Array<
+    //     EntryFieldTypes.EntryLink<EntrySkeletonType<IEquipmentFields>>
+    // >
 }
 
 export type IEquipmentTypeEntry = IContentfulEntry<IEquipmentTypeFields>
 
 export interface IEquipmentTypeListFields {
-    title: EntryFieldTypes.Text
-    equipmentTypes: EntryFieldTypes.Array<
+    ekipmanlar: EntryFieldTypes.Text
+    items: EntryFieldTypes.Array<
         EntryFieldTypes.EntryLink<EntrySkeletonType<IEquipmentTypeFields>>
     >
 }
