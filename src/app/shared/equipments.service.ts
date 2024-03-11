@@ -6,6 +6,7 @@ import {
     IEquipmentTypeFields,
 } from './contentful'
 import { merge, pick } from 'rambda'
+import { EquipmentTypes } from './model'
 
 @Injectable({
     providedIn: 'root',
@@ -13,7 +14,7 @@ import { merge, pick } from 'rambda'
 export class EquipmentsService {
     private syncService = inject(SyncService)
 
-    async getEquipmentList() {
+    async getEquipmentList(): Promise<EquipmentTypes> {
         const listEntry =
             await this.syncService.getEntry<IEquipmentTypeListFields>(
                 IContentfulContent.EquipmentTypeList,

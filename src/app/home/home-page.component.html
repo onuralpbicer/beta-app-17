@@ -5,8 +5,19 @@
                 <ion-icon name="log-out-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
+        @if (entry(); as entry) {
+        <ion-title>
+            {{ entry.name }}
+        </ion-title>
+        }
     </ion-toolbar>
 </ion-header>
-<ion-content [forceOverscroll]="false">
-    content {{ syncStatus() }} {{ syncToken() }}</ion-content
->
+<ion-content [forceOverscroll]="false" class="ion-padding">
+    <ion-list>
+        @for (item of items(); track item.id) {
+        <beta-app-list-item [id]="item.id" [name]="item.name" />
+        } @empty {
+        <div>Empty</div>
+        }
+    </ion-list>
+</ion-content>
