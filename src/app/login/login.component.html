@@ -1,1 +1,24 @@
-<p>login works!</p>
+<ion-content [forceOverscroll]="false" class="ion-padding">
+    <ion-card class="ion-padding">
+        <img src="/assets/logo.png" alt="Beta Muhendislik logo" />
+        <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+            <ion-input
+                label="Kullanıcı Adı"
+                formControlName="username"
+                labelPlacement="floating"
+            ></ion-input>
+
+            <ion-input
+                label="Şifre"
+                formControlName="password"
+                type="password"
+                labelPlacement="floating"
+            ></ion-input>
+
+            <ion-button type="submit" expand="block" [disabled]="form.invalid">
+                <ion-spinner name="lines-sharp-small"></ion-spinner>
+                <ng-template #buttonText> Giriş Yap </ng-template>
+            </ion-button>
+        </form>
+    </ion-card>
+</ion-content>

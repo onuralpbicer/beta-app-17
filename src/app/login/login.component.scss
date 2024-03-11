@@ -1,0 +1,12 @@
+ion-content::part(scroll) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+form {
+    * {
+        margin-bottom: 0.5rem;
+    }
+}

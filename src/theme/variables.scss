@@ -70,7 +70,10 @@
     --ion-color-dark-shade: #292929;
     --ion-color-dark-tint: #444444;
 
-    --ion-background-color: var(--ion-color-medium-shade);
+    --ion-background-color: var(--ion-color-dark);
+
+    --ion-card-background: var(--ion-color-light);
+    --ion-card-color: var(--ion-color-light-contrast);
 }
 
 /*
@@ -105,9 +108,6 @@
     // --ion-item-background: #1e1e1e;
 
     // --ion-toolbar-background: var(--ion-background-color);
-
-    // --ion-card-background: var(--ion-color-light);
-    // --ion-card-color: var(--ion-color-light-contrast);
 
     // --ion-tab-bar-background: var(--ion-card-background);
     // --ion-tab-bar-color: var(--ion-color-light-contrast);
