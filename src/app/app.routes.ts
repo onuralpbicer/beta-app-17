@@ -43,9 +43,32 @@ export const appRoutes: Route[] = [
             {
                 path: ':id',
                 loadComponent: () =>
-                    import('./equipment-type/equipment-type.component').then(
-                        (m) => m.EquipmentTypeComponent,
+                    import(
+                        './equipment-type-page/equipment-type-page.component'
+                    ).then((m) => m.EquipmentTypePageComponent),
+            },
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: '/',
+            },
+        ],
+    },
+    {
+        path: 'equipment',
+        canActivate: [authGuard],
+        children: [
+            {
+                path: ':id',
+                loadComponent: () =>
+                    import('./equipment-page/equipment-page.component').then(
+                        (m) => m.EquipmentPageComponent,
                     ),
+            },
+            {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: '/',
             },
         ],
     },

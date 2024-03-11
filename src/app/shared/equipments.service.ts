@@ -4,9 +4,10 @@ import {
     IEquipmentTypeListFields,
     IContentfulContent,
     IEquipmentTypeFields,
+    IEquipmentFields,
 } from './contentful'
 import { merge, pick } from 'rambda'
-import { EquipmentTypes } from './model'
+import { ListPage } from './model'
 
 @Injectable({
     providedIn: 'root',
@@ -14,26 +15,29 @@ import { EquipmentTypes } from './model'
 export class EquipmentsService {
     private syncService = inject(SyncService)
 
-    async getEquipmentList(): Promise<EquipmentTypes> {
-        const listEntry =
-            await this.syncService.getEntry<IEquipmentTypeListFields>(
-                IContentfulContent.EquipmentTypeList,
-            )
+    async getEquipmentList(
+        id: string = IContentfulContent.EquipmentTypeList,
+    ): Promise<ListPage> {
+        const listEntry = await this.syncService.getEntry<
+            IEquipmentTypeListFields | IEquipmentTypeFields
+        >(id)
 
         const itemEntries = await Promise.all(
             listEntry.fields.items.map((item) =>
-                this.syncService.getEntry<IEquipmentTypeFields>(item.sys.id),
+                this.syncService.getEntry<
+                    IEquipmentTypeFields | IEquipmentFields
+                >(item.sys.id),
             ),
         )
 
         const items = itemEntries.map((item) =>
-            merge(pick(['name'], item.fields), {
-                id: item.sys.id,
+            merge(pick(['id'], item.fields), {
+                link: item.sys.id,
             }),
         )
 
         return {
-            name: listEntry.fields.ekipmanlar,
+            name: listEntry.fields.id,
             items,
         }
     }

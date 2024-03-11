@@ -1,46 +1,43 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core'
-import { CommonModule } from '@angular/common'
-import { AuthService } from '../shared/auth.service'
 import {
-    IonContent,
+    Component,
+    Input,
+    OnInit,
+    computed,
+    inject,
+    signal,
+} from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { EquipmentsService } from '../shared/equipments.service'
+import { ListPage } from '../shared/model'
+import {
     IonHeader,
     IonToolbar,
     IonButtons,
-    IonButton,
-    IonIcon,
-    IonTitle,
+    IonBackButton,
+    IonContent,
     IonList,
+    IonTitle,
 } from '@ionic/angular/standalone'
-import { addIcons } from 'ionicons'
-import { logOutOutline } from 'ionicons/icons'
-import { EquipmentsService } from '../shared/equipments.service'
-import { ListPage } from '../shared/model'
 import { ListItemComponent } from '../list-item/list-item.component'
 
-addIcons({
-    logOutOutline,
-})
-
 @Component({
-    selector: 'beta-app-home-page',
+    selector: 'beta-app-equipment-type',
     standalone: true,
     imports: [
-        IonList,
         IonTitle,
-        IonIcon,
-        IonButton,
+        IonList,
+        IonContent,
+        IonBackButton,
         IonButtons,
         IonToolbar,
         IonHeader,
-        IonContent,
         CommonModule,
         ListItemComponent,
     ],
-    templateUrl: './home-page.component.html',
-    styleUrl: './home-page.component.scss',
+    templateUrl: './equipment-type-page.component.html',
+    styleUrl: './equipment-type-page.component.scss',
 })
-export class HomePageComponent implements OnInit {
-    private authService = inject(AuthService)
+export class EquipmentTypePageComponent implements OnInit {
     private equipmentsService = inject(EquipmentsService)
 
     public isLoading = signal(true)
@@ -52,20 +49,18 @@ export class HomePageComponent implements OnInit {
         return (
             this.entry()?.items?.map((item) => ({
                 ...item,
-                href: '/equipment-type/' + item.link,
+                href: '/equipment/' + item.link,
             })) ?? []
         )
     })
 
+    @Input() id!: string
+
     async ngOnInit() {
         this.isLoading.set(true)
-        const entry = await this.equipmentsService.getEquipmentList()
+        const entry = await this.equipmentsService.getEquipmentList(this.id)
 
         this.entry.set(entry)
         this.isLoading.set(false)
-    }
-
-    logout() {
-        this.authService.logout()
     }
 }

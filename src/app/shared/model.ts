@@ -1,4 +1,4 @@
-export interface EquipmentTypes {
+export interface ListPage {
     name: string
-    items: Array<{ id: string; name: string }>
+    items: Array<{ link: string; id: string }>
 }

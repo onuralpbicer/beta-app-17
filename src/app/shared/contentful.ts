@@ -27,26 +27,26 @@ export type IContentfulEntry<T extends FieldsType> = Entry<
 >
 export type ExtractType<T extends FieldsType> = IContentfulEntry<T>['fields']
 
-// export interface IEquipmentFields {
-//     name: EntryFieldTypes.Text
-//     body: EntryFieldTypes.Text
-//     maintenanceTasks: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
-// }
+export interface IEquipmentFields {
+    id: EntryFieldTypes.Text
+    // body: EntryFieldTypes.Text
+    // maintenanceTasks: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
+}
 
-// export type IEquipmentEntry = IContentfulEntry<IEquipmentFields>
+export type IEquipmentEntry = IContentfulEntry<IEquipmentFields>
 
 export interface IEquipmentTypeFields {
-    name: EntryFieldTypes.Text
-    items: Array<unknown>
-    // equipments: EntryFieldTypes.Array<
-    //     EntryFieldTypes.EntryLink<EntrySkeletonType<IEquipmentFields>>
-    // >
+    id: EntryFieldTypes.Text
+    // items: Array<unknown>
+    items: EntryFieldTypes.Array<
+        EntryFieldTypes.EntryLink<EntrySkeletonType<IEquipmentFields>>
+    >
 }
 
 export type IEquipmentTypeEntry = IContentfulEntry<IEquipmentTypeFields>
 
 export interface IEquipmentTypeListFields {
-    ekipmanlar: EntryFieldTypes.Text
+    id: EntryFieldTypes.Text
     items: EntryFieldTypes.Array<
         EntryFieldTypes.EntryLink<EntrySkeletonType<IEquipmentTypeFields>>
     >
