@@ -11,6 +11,7 @@ import {
 } from '@ionic/angular/standalone'
 import { addIcons } from 'ionicons'
 import { logOutOutline } from 'ionicons/icons'
+import { ContentfulStore } from '../stores/contentful.feature'
 
 addIcons({
     logOutOutline,
@@ -33,6 +34,10 @@ addIcons({
 })
 export class HomePageComponent {
     private authService = inject(AuthService)
+    private contentfulStore = inject(ContentfulStore)
+
+    public syncStatus = this.contentfulStore.viewStatus
+    public syncToken = this.contentfulStore.nextSyncToken
 
     logout() {
         this.authService.logout()

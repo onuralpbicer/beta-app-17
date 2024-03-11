@@ -29,6 +29,14 @@ export const appRoutes: Route[] = [
             ),
     },
     {
+        path: 'sync',
+        canActivate: [authGuard],
+        loadComponent: () =>
+            import('./sync-page/sync-page.component').then(
+                (m) => m.SyncPageComponent,
+            ),
+    },
+    {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

@@ -1,0 +1,15 @@
+<ion-content [forceOverscroll]="false">
+    <div class="container">
+        <ion-spinner *ngIf="isLoading()"></ion-spinner>
+
+        <ng-container *ngIf="syncStatus() === SyncStatus.Success">
+            <ion-text>Sync successful</ion-text>
+            <ion-icon name="checkmark-outline"></ion-icon>
+        </ng-container>
+
+        <ng-container *ngIf="syncStatus() === SyncStatus.Failure">
+            <ion-text>Sync failed, please try again later</ion-text>
+            <ion-icon name="close-outline"></ion-icon>
+        </ng-container>
+    </div>
+</ion-content>

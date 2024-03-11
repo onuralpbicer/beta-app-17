@@ -1,8 +1,20 @@
-import { ApplicationConfig } from '@angular/core'
+import { ApplicationConfig, importProvidersFrom } from '@angular/core'
 import { provideRouter } from '@angular/router'
 import { appRoutes } from './app.routes'
 import { provideIonicAngular } from '@ionic/angular/standalone'
+import { provideHttpClient } from '@angular/common/http'
+import { IonicStorageModule } from '@ionic/storage-angular'
+import { Drivers } from '@ionic/storage'
 
 export const appConfig: ApplicationConfig = {
-    providers: [provideRouter(appRoutes), provideIonicAngular({})],
+    providers: [
+        provideHttpClient(),
+        provideRouter(appRoutes),
+        provideIonicAngular({}),
+        importProvidersFrom(
+            IonicStorageModule.forRoot({
+                driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
+            }),
+        ),
+    ],
 }
