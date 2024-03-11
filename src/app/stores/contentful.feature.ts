@@ -38,7 +38,7 @@ const defaultInitialState: ISyncState = {
 const { getInitialState, withLocalStorage } = persistSignalStore(
     defaultInitialState,
     {
-        ['SIGNALSTORE.contentful']: ['nextSyncToken'],
+        ['contentful']: ['nextSyncToken'],
     },
 )
 

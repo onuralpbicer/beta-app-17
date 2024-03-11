@@ -2,6 +2,8 @@ import { effect } from '@angular/core'
 import { signalStoreFeature, withHooks, getState } from '@ngrx/signals'
 import { mergeDeepLeft, pick } from 'rambda'
 
+const prefix = 'SIGNALSTORE.'
+
 export function persistSignalStore<T extends object>(
     initialState: T,
     persistenceKeys: string | Record<string, Array<keyof T>>,
@@ -13,7 +15,7 @@ export function persistSignalStore<T extends object>(
 
     return {
         getInitialState() {
-            const savedState = localStorage.getItem(persistenceKey)
+            const savedState = localStorage.getItem(prefix + persistenceKey)
             if (savedState) {
                 return mergeDeepLeft<T>(JSON.parse(savedState), initialState)
             }
@@ -35,7 +37,7 @@ export function persistSignalStore<T extends object>(
                                       )
 
                             localStorage.setItem(
-                                persistenceKey,
+                                prefix + persistenceKey,
                                 JSON.stringify(saveState),
                             )
                         })
