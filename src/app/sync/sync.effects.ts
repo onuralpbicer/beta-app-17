@@ -99,6 +99,7 @@ export class SyncEffects {
         () =>
             this.action$.pipe(
                 ofType(syncActions.complete),
+                delay(this.delayTimeout / 2),
                 tap(() => {
                     this.syncService.goBack()
                 }),
