@@ -5,6 +5,12 @@ import { provideIonicAngular } from '@ionic/angular/standalone'
 import { provideHttpClient } from '@angular/common/http'
 import { IonicStorageModule } from '@ionic/storage-angular'
 import { Drivers } from '@ionic/storage'
+import { provideState, provideStore } from '@ngrx/store'
+import { provideEffects } from '@ngrx/effects'
+import { provideStoreDevtools } from '@ngrx/store-devtools'
+import { syncFeatureKey, syncReducer } from './sync/sync.feature'
+import { metaReducers, reducers } from './reducer'
+import { SyncEffects } from './sync/sync.effects'
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -19,5 +25,11 @@ export const appConfig: ApplicationConfig = {
                 driverOrder: [Drivers.IndexedDB, Drivers.LocalStorage],
             }),
         ),
+        provideStore(reducers, {
+            metaReducers,
+        }),
+        provideEffects(SyncEffects),
+        provideState(syncFeatureKey, syncReducer),
+        provideStoreDevtools(),
     ],
 }

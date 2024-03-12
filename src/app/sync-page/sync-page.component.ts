@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ContentfulStore, ISyncStatus } from '../stores/contentful.feature'
 import {
     IonSpinner,
     IonText,
@@ -9,6 +8,9 @@ import {
 } from '@ionic/angular/standalone'
 import { addIcons } from 'ionicons'
 import { closeOutline, checkmarkOutline } from 'ionicons/icons'
+import { ISyncStatus } from '../shared/model'
+import { Store } from '@ngrx/store'
+import { selectIsLoading, selectViewStatus } from '../sync/sync.feature'
 
 addIcons({
     closeOutline,
@@ -23,10 +25,10 @@ addIcons({
     styleUrl: './sync-page.component.scss',
 })
 export class SyncPageComponent {
-    private contentfulStore = inject(ContentfulStore)
+    private store = inject(Store)
 
-    public isLoading = this.contentfulStore.isLoading
-    public syncStatus = this.contentfulStore.viewStatus
+    public isLoading$ = this.store.select(selectIsLoading)
+    public syncStatus$ = this.store.select(selectViewStatus)
 
     public SyncStatus = ISyncStatus
 }
