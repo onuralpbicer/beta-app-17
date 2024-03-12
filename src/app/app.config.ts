@@ -11,6 +11,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools'
 import { syncFeatureKey, syncReducer } from './sync/sync.feature'
 import { metaReducers, reducers } from './reducer'
 import { SyncEffects } from './sync/sync.effects'
+import { AuthEffects } from './auth/auth.effects'
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -28,7 +29,7 @@ export const appConfig: ApplicationConfig = {
         provideStore(reducers, {
             metaReducers,
         }),
-        provideEffects(SyncEffects),
+        provideEffects(SyncEffects, AuthEffects),
         provideState(syncFeatureKey, syncReducer),
         provideStoreDevtools(),
     ],

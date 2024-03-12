@@ -2,6 +2,7 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store'
 import { syncActions } from './sync.action'
 import { ISyncStatus } from '../shared/model'
 import { complement, equals, includes } from 'rambda'
+import { authActions } from '../auth/auth.actions'
 
 export interface ISyncState {
     viewStatus: ISyncStatus
@@ -38,6 +39,7 @@ const feature = createFeature({
             ...state,
             viewStatus: ISyncStatus.Failure,
         })),
+        on(authActions.logout, () => initialValue),
     ),
     extraSelectors: (baseSelectors) => ({
         selectIsInitial: createSelector(

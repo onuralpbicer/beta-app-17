@@ -19,6 +19,7 @@ import { SyncService } from '../shared/sync.service'
 import { environment } from 'src/environments/environment'
 import { Store } from '@ngrx/store'
 import { selectNextSyncToken } from './sync.feature'
+import { authActions } from '../auth/auth.actions'
 
 rootEffectsInit
 @Injectable()
@@ -32,7 +33,7 @@ export class SyncEffects {
 
     public test$ = createEffect(() =>
         this.action$.pipe(
-            ofType(rootEffectsInit),
+            ofType(rootEffectsInit, authActions.loginSuccess),
             debounceTime(1),
             withLatestFrom(this.authService.isLoggedIn()),
             filter(([, isLoggedIn]) => isLoggedIn),
@@ -101,6 +102,17 @@ export class SyncEffects {
                 tap(() => {
                     this.syncService.goBack()
                 }),
+            ),
+        {
+            dispatch: false,
+        },
+    )
+
+    logout$ = createEffect(
+        () =>
+            this.action$.pipe(
+                ofType(authActions.logout),
+                tap(() => this.syncService.clearCache()),
             ),
         {
             dispatch: false,

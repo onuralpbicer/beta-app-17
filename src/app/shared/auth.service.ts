@@ -12,6 +12,8 @@ import {
     getCurrentUser,
 } from '@aws-amplify/auth'
 import { BehaviorSubject } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { authActions } from '../auth/auth.actions'
 
 const requiresNewPasswordEvent = 'require-new-password'
 
@@ -21,17 +23,15 @@ const requiresNewPasswordEvent = 'require-new-password'
 export class AuthService {
     private toastService = inject(ToastService)
     private navContoller = inject(NavController)
+    private store = inject(Store)
 
     constructor() {
         Hub.listen('auth', async ({ payload: { event } }) => {
             console.log('hub event', 'auth', event)
             switch (event) {
                 case 'signedIn':
+                    this.store.dispatch(authActions.login())
                     // await this.datastore.init()
-                    this.toastService.showSuccessToast(MESSAGES.loginSuccess)
-                    this.navContoller.navigateForward('home', {
-                        replaceUrl: true,
-                    })
                     break
 
                 // case 'signIn_failure':
@@ -41,9 +41,8 @@ export class AuthService {
                 //     break
 
                 case 'signedOut':
+                    this.store.dispatch(authActions.logout())
                     // await this.datastore.stop()
-                    this.toastService.showSuccessToast(MESSAGES.logoutSuccess)
-                    this.navContoller.navigateBack('login')
                     break
             }
         })
