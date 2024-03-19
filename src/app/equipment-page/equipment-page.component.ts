@@ -9,6 +9,7 @@ import {
     IonBackButton,
     IonTitle,
 } from '@ionic/angular/standalone'
+import { IEquipment } from '../shared/contentful'
 
 @Component({
     selector: 'beta-app-equipment-page',
@@ -29,7 +30,7 @@ export class EquipmentPageComponent implements OnInit {
     private equipmentsService = inject(EquipmentsService)
 
     public isLoading = signal(true)
-    public entry = signal<any | undefined>(undefined)
+    public entry = signal<IEquipment | undefined>(undefined)
 
     @Input() id!: string
 
@@ -38,7 +39,7 @@ export class EquipmentPageComponent implements OnInit {
         const entry = await this.equipmentsService.getEquipment(this.id)
         console.log(entry)
 
-        this.entry.set(entry.equipment)
+        this.entry.set(entry)
         this.isLoading.set(false)
     }
 }

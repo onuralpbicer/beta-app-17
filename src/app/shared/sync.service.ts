@@ -20,7 +20,7 @@ import {
     switchMap,
 } from 'rxjs'
 import { isNil, isEmpty, equals } from 'rambda'
-import { IContentfulEntry, ISyncCollection } from './contentful'
+import { IContentfulEntry, IEquipment, ISyncCollection } from './contentful'
 import { HttpClient } from '@angular/common/http'
 import { blobToString } from './util'
 import { environment } from 'src/environments/environment'
@@ -84,8 +84,8 @@ export class SyncService {
         )
     }
 
-    private getEntryFields<T extends FieldsType>(
-        entry: IContentfulEntry<T>,
+    private getEntryFields<T extends FieldsType, ID extends string = string>(
+        entry: IContentfulEntry<T, ID>,
     ): T {
         const fieldsWithLocale = entry?.fields ?? {}
         return Object.entries(fieldsWithLocale).reduce((acc, [key, value]) => {
@@ -109,7 +109,28 @@ export class SyncService {
                 map((result) => {
                     const entry = JSON.parse(result)
                     const fields = this.getEntryFields<T>(entry)
-                    return { ...entry, fields }
+                    return {
+                        ...entry,
+                        fields,
+                    }
+                }),
+            ),
+        )
+    }
+
+    public getEquipment(id: string): Promise<IEquipment> {
+        return firstValueFrom(
+            this.storage.get(id).pipe(
+                map((result) => {
+                    const entry = JSON.parse(result)
+                    const fields = this.getEntryFields(entry)
+                    return {
+                        ...entry,
+                        fields: {
+                            ...fields,
+                            contentType: entry.sys.contentType.sys.id,
+                        },
+                    }
                 }),
             ),
         )

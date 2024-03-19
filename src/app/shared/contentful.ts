@@ -23,14 +23,16 @@ export type ISyncCollection = SyncCollection<
 export type IContentfulEntry<
     T extends FieldsType,
     ID extends string = string,
-> = Entry<EntrySkeletonType<T>, 'WITHOUT_LINK_RESOLUTION', string>
+> = Entry<EntrySkeletonType<T, ID>, 'WITHOUT_LINK_RESOLUTION', string>
 export type ExtractType<T extends FieldsType> = IContentfulEntry<T>['fields']
 
 export interface IEquipmentTypeFields {
     id: EntryFieldTypes.Text
     // items: Array<unknown>
     items: EntryFieldTypes.Array<
-        EntryFieldTypes.EntryLink<EntrySkeletonType<IBaseEquipmentFields>>
+        EntryFieldTypes.EntryLink<
+            EntrySkeletonType<IBaseEquipmentFields<IEquipmentTypes>>
+        >
     >
 }
 
@@ -45,35 +47,33 @@ export interface IEquipmentTypeListFields {
 
 export type IEquipmentTypeListEntry = IContentfulEntry<IEquipmentTypeListFields>
 
-export interface IBaseEquipmentFields {
+interface IBaseEquipmentFields<ID extends IEquipmentTypes> {
     id: EntryFieldTypes.Text
+    contentType: EntryFieldTypes.Text<ID>
     // body: EntryFieldTypes.Text
     // maintenanceTasks: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
 }
 
-export type IEquipmentEntry<
-    T extends FieldsType,
-    ID extends string = string,
-> = IContentfulEntry<
-    T & IBaseEquipmentFields & { type: EntryFieldTypes.Text<ID> },
-    ID
->
+export enum IEquipmentTypes {
+    RoofFan = 'roofExhaustFan',
+    Test = 'equipment2',
+}
 
-export interface IRoofFanEquipmentFields {
+export interface IRoofFanEquipmentFields
+    extends IBaseEquipmentFields<IEquipmentTypes.RoofFan> {
     brand: EntryFieldTypes.Text
     model: EntryFieldTypes.Text
     presentLocation: EntryFieldTypes.Text
     serviceLocation: EntryFieldTypes.Text
     year: EntryFieldTypes.Text
 }
-export type RoofTest = IEquipmentEntry<
-    IRoofFanEquipmentFields,
-    'roofExhaustFan'
->
+export type RoofTest = IContentfulEntry<IRoofFanEquipmentFields>
 
-export interface IEquipment2Fields {
+export interface IEquipment2Fields
+    extends IBaseEquipmentFields<IEquipmentTypes.Test> {
     test: EntryFieldTypes.Number
 }
-export type Equipment2Test = IEquipmentEntry<IEquipment2Fields, 'equipment2'>
+export type Equipment2Test = IContentfulEntry<IEquipment2Fields>
 
+export type IEquipmentFields = IRoofFanEquipmentFields & IEquipment2Fields
 export type IEquipment = RoofTest | Equipment2Test
