@@ -4,7 +4,8 @@ import {
     IEquipmentTypeListFields,
     IContentfulContent,
     IEquipmentTypeFields,
-    IEquipmentFields,
+    IBaseEquipmentFields,
+    IContentfulEntry,
 } from './contentful'
 import { isNil, merge, pick } from 'rambda'
 import { ListPage } from './model'
@@ -32,7 +33,7 @@ export class EquipmentsService {
             const itemEntries = await Promise.all(
                 listEntry.fields.items.map((item) =>
                     this.syncService.getEntry<
-                        IEquipmentTypeFields | IEquipmentFields
+                        IEquipmentTypeFields | IBaseEquipmentFields
                     >(item.sys.id),
                 ),
             )
@@ -58,6 +59,13 @@ export class EquipmentsService {
     }
 
     async getEquipment(id: string) {
-        return this.syncService.getEntry<IEquipmentFields>(id)
+        const equipment = await this.syncService.getEntry<
+            Record<string, never>
+        >(id)
+
+        return {
+            equipment: equipment.fields,
+            type: equipment.sys.contentType.sys.id,
+        }
     }
 }

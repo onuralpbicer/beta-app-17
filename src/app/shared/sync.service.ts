@@ -64,7 +64,7 @@ export class SyncService {
     checkForUpdate(nextSyncToken: string | null): Observable<ISyncCollection> {
         const config = environment.contentful
         return from(
-            createClient(config).withoutLinkResolution.sync<
+            createClient(config).sync<
                 EntrySkeletonType<NonNullable<unknown>>,
                 'WITHOUT_LINK_RESOLUTION'
             >({

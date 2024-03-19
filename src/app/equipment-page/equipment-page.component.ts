@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, inject, signal } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { EquipmentsService } from '../shared/equipments.service'
-import { IContentfulEntry, IEquipmentFields } from '../shared/contentful'
 import {
     IonContent,
     IonHeader,
@@ -30,17 +29,16 @@ export class EquipmentPageComponent implements OnInit {
     private equipmentsService = inject(EquipmentsService)
 
     public isLoading = signal(true)
-    public entry = signal<IContentfulEntry<IEquipmentFields> | undefined>(
-        undefined,
-    )
+    public entry = signal<any | undefined>(undefined)
 
     @Input() id!: string
 
     async ngOnInit() {
         this.isLoading.set(true)
         const entry = await this.equipmentsService.getEquipment(this.id)
+        console.log(entry)
 
-        this.entry.set(entry)
+        this.entry.set(entry.equipment)
         this.isLoading.set(false)
     }
 }
