@@ -24,7 +24,7 @@ export type IContentfulEntry<
     T extends FieldsType,
     ID extends string = string,
 > = Entry<EntrySkeletonType<T, ID>, 'WITHOUT_LINK_RESOLUTION', string>
-export type ExtractType<T extends FieldsType> = IContentfulEntry<T>['fields']
+type ExtractType<T extends FieldsType> = IContentfulEntry<T>['fields']
 
 export interface IEquipmentTypeFields {
     id: EntryFieldTypes.Text
@@ -67,12 +67,13 @@ export interface IRoofFanEquipmentFields
     serviceLocation: EntryFieldTypes.Text
     year: EntryFieldTypes.Text
 }
-export type RoofTest = IContentfulEntry<IRoofFanEquipmentFields>
+type IRoofFanEntry = IContentfulEntry<IRoofFanEquipmentFields>
+export type IRoofFan = ExtractType<IRoofFanEquipmentFields>
 
 export interface IEquipment2Fields
     extends IBaseEquipmentFields<IEquipmentTypes.Test> {
     test: EntryFieldTypes.Number
 }
-export type Equipment2Test = IContentfulEntry<IEquipment2Fields>
+type IEquipment2Entry = IContentfulEntry<IEquipment2Fields>
 
-export type IEquipment = RoofTest | Equipment2Test
+export type IEquipment = IRoofFanEntry | IEquipment2Entry
