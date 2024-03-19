@@ -4,10 +4,6 @@ import {
     IEquipmentTypeListFields,
     IContentfulContent,
     IEquipmentTypeFields,
-    IContentfulEntry,
-    IEquipment,
-    IEquipmentTypes,
-    IEquipmentFields,
 } from './contentful'
 import { isNil, merge, pick } from 'rambda'
 import { ListPage } from './model'
@@ -61,8 +57,6 @@ export class EquipmentsService {
     }
 
     async getEquipment(id: string) {
-        return this.syncService.getEquipment(
-            id,
-        )
+        return this.syncService.getEquipment(id)
     }
 }

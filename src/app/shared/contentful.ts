@@ -75,5 +75,4 @@ export interface IEquipment2Fields
 }
 export type Equipment2Test = IContentfulEntry<IEquipment2Fields>
 
-export type IEquipmentFields = IRoofFanEquipmentFields & IEquipment2Fields
 export type IEquipment = RoofTest | Equipment2Test
