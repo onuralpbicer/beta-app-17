@@ -8,4 +8,15 @@
         }
     </ion-toolbar>
 </ion-header>
-<ion-content [forceOverscroll]="false" class="ion-padding"></ion-content>
+<ion-content [forceOverscroll]="false" class="ion-padding">
+    <ion-list>
+        @if (entry(); as entry) {
+        <ion-item>
+            <ion-label>
+                <h3>Id</h3>
+                <p>{{entry.fields.id}}</p>
+            </ion-label>
+        </ion-item>
+        }
+    </ion-list>
+</ion-content>

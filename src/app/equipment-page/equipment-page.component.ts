@@ -8,6 +8,9 @@ import {
     IonButtons,
     IonBackButton,
     IonTitle,
+    IonItem,
+    IonLabel,
+    IonList,
 } from '@ionic/angular/standalone'
 import { IEquipment } from '../shared/contentful'
 
@@ -22,6 +25,9 @@ import { IEquipment } from '../shared/contentful'
         IonHeader,
         IonContent,
         CommonModule,
+        IonItem,
+        IonLabel,
+        IonList,
     ],
     templateUrl: './equipment-page.component.html',
     styleUrl: './equipment-page.component.scss',

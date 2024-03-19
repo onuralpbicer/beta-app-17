@@ -101,7 +101,7 @@ export class SyncService {
         return firstValueFrom(this.storage.get(id))
     }
 
-    public getEntry<T extends FieldsType>(
+    public getEntry<T extends FieldsType >(
         id: string,
     ): Promise<IContentfulEntry<T>> {
         return firstValueFrom(
