@@ -12,16 +12,27 @@ import {
     IonLabel,
     IonList,
     IonListHeader,
+    NavController,
+    IonButton,
+    IonIcon,
 } from '@ionic/angular/standalone'
 import { IEquipment, IEquipmentTypes } from '../shared/contentful'
 import { RoofFanEquipmentComponent } from '../roof-fan-equipment/roof-fan-equipment.component'
 import { DatastoreService } from '../shared/datastore.service'
 import { Maintenance } from '../API.service'
+import { addIcons } from 'ionicons'
+import { addOutline } from 'ionicons/icons'
+
+addIcons({
+    addOutline,
+})
 
 @Component({
     selector: 'beta-app-equipment-page',
     standalone: true,
     imports: [
+        IonIcon,
+        IonButton,
         IonListHeader,
         IonTitle,
         IonBackButton,
@@ -41,6 +52,7 @@ import { Maintenance } from '../API.service'
 export class EquipmentPageComponent implements OnInit {
     private equipmentsService = inject(EquipmentsService)
     private datastoreService = inject(DatastoreService)
+    private navController = inject(NavController)
 
     public maintenanceLoading = signal(false)
     public maintenanceList = signal([] as Maintenance[])
@@ -73,5 +85,13 @@ export class EquipmentPageComponent implements OnInit {
 
         this.maintenanceList.set(list.data.listMaintenances.items)
         this.maintenanceLoading.set(false)
+    }
+
+    goToMaintenance(maintenanceId?: Maintenance['maintenanceId']) {
+        const navigate = ['equipment', this.id, 'maintenance']
+        if (maintenanceId) {
+            navigate.push(maintenanceId)
+        }
+        this.navController.navigateForward(navigate)
     }
 }

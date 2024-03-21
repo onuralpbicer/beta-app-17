@@ -6,6 +6,11 @@
         @if (entry(); as entry) {
         <ion-title> {{ entry?.fields?.id }} </ion-title>
         }
+        <ion-buttons slot="end">
+            <ion-button (click)="goToMaintenance()">
+                <ion-icon name="add-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 <ion-content [forceOverscroll]="false" class="ion-padding">

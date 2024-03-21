@@ -62,10 +62,34 @@ export const appRoutes: Route[] = [
         children: [
             {
                 path: ':id',
-                loadComponent: () =>
-                    import('./equipment-page/equipment-page.component').then(
-                        (m) => m.EquipmentPageComponent,
-                    ),
+                children: [
+                    {
+                        path: '',
+                        loadComponent: () =>
+                            import(
+                                './equipment-page/equipment-page.component'
+                            ).then((m) => m.EquipmentPageComponent),
+                    },
+                    {
+                        path: 'maintenance',
+                        children: [
+                            {
+                                path: '',
+                                loadComponent: () =>
+                                    import(
+                                        './maintenance-page/maintenance-page.component'
+                                    ).then((m) => m.MaintenancePageComponent),
+                            },
+                            {
+                                path: 'maintenanceId',
+                                loadComponent: () =>
+                                    import(
+                                        './maintenance-page/maintenance-page.component'
+                                    ).then((m) => m.MaintenancePageComponent),
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 path: '',
