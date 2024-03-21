@@ -66,6 +66,17 @@ export interface IRoofFanEquipmentFields
     presentLocation: EntryFieldTypes.Text
     serviceLocation: EntryFieldTypes.Text
     year: EntryFieldTypes.Text
+    serialNumber: EntryFieldTypes.Text
+    orderNumber: EntryFieldTypes.Text
+    flow: EntryFieldTypes.Number
+    pressure: EntryFieldTypes.Number
+    motorPower: EntryFieldTypes.Number
+    motorModel: EntryFieldTypes.Text
+    motorRotation: EntryFieldTypes.Number
+    voltage: EntryFieldTypes.Number
+    current: EntryFieldTypes.Number
+    currentDraw: EntryFieldTypes.Number
+    driveType: EntryFieldTypes.Text<'Kayış Kasnak' | 'Direk'>
 }
 type IRoofFanEntry = IContentfulEntry<IRoofFanEquipmentFields>
 export type IRoofFan = ExtractType<IRoofFanEquipmentFields>

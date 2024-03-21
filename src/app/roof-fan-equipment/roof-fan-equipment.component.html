@@ -1,1 +1,158 @@
-<p>RoofFanEquipment works!</p>
+<ion-list lines="none">
+    <ion-item>
+        <ion-label>
+            <h3>Cihazın hizmet mahali</h3>
+            <p>
+                {{ equipment.serviceLocation }}
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+            <h3>Cihazın bulunduğu mahal</h3>
+            <p>
+                {{ equipment.presentLocation }}
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Cihaz marka</h3>
+                    <p>
+                        {{ equipment.brand }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Cihaz model</h3>
+                    <p>
+                        {{ equipment.model }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>İmalat yılı</h3>
+                    <p>
+                        {{ equipment.year }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-item>
+        <ion-label>
+            <h3>Seri numarası</h3>
+            <p>
+                {{ equipment.serialNumber }}
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+            <h3>Sipariş numarası</h3>
+            <p>
+                {{ equipment.orderNumber }}
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Debi <span>(m<sup>3</sup>/h)</span></h3>
+                    <p>
+                        {{ equipment.flow }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Basınç <span>(mm)</span></h3>
+                    <p>
+                        {{ equipment.pressure }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-item class="ion-margin-top">
+        <ion-label>
+            <h3>Elektrik Motor Model</h3>
+            <p>
+                {{ equipment.motorModel }}
+            </p>
+        </ion-label>
+    </ion-item>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Elektrik Motor Gücü <span>(kw)</span></h3>
+                    <p>
+                        {{ equipment.motorPower }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Elektrik Motor Devri <span>(d/dk)</span></h3>
+                    <p>
+                        {{ equipment.motorRotation }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Voltaj <span>(VAC)</span></h3>
+                    <p>
+                        {{ equipment.voltage }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Akım <span>(A)</span></h3>
+                    <p>
+                        {{ equipment.current }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+        <ion-col>
+            <ion-item>
+                <ion-label>
+                    <h3>Çektiği akım <span>(A)</span></h3>
+                    <p>
+                        {{ equipment.currentDraw }}
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-item>
+        <ion-label>
+            <h3>Tahrik şekli</h3>
+            <p>
+                {{ equipment.driveType }}
+            </p>
+        </ion-label>
+    </ion-item>
+</ion-list>

@@ -1,0 +1,26 @@
+ion-list {
+    > * {
+        border-bottom: 1px solid white;
+    }
+
+    ion-item {
+        --padding-start: 0px;
+    }
+
+    ion-row {
+        ion-col {
+            ion-item {
+                --inner-padding-end: 0px;
+                --inner-padding-start: 0px;
+            }
+        }
+    }
+
+    ion-label {
+        h3 {
+            span {
+                font-size: smaller;
+            }
+        }
+    }
+}
