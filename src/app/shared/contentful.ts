@@ -43,6 +43,7 @@ export interface IEquipmentTypeListFields {
     items: EntryFieldTypes.Array<
         EntryFieldTypes.EntryLink<EntrySkeletonType<IEquipmentTypeFields>>
     >
+    maintenanceTasks: EntryFieldTypes.Array<EntryFieldTypes.Symbol<string>>
 }
 
 export type IEquipmentTypeListEntry = IContentfulEntry<IEquipmentTypeListFields>
@@ -50,8 +51,6 @@ export type IEquipmentTypeListEntry = IContentfulEntry<IEquipmentTypeListFields>
 interface IBaseEquipmentFields<ID extends IEquipmentTypes> {
     id: EntryFieldTypes.Text
     contentType: EntryFieldTypes.Text<ID>
-    // body: EntryFieldTypes.Text
-    // maintenanceTasks: EntryFieldTypes.Array<EntryFieldTypes.Symbol>
 }
 
 export enum IEquipmentTypes {

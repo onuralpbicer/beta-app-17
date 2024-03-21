@@ -10,7 +10,9 @@
         "preios": "npm run build:dev",
         "android": "npx cap sync android && npx cap open android",
         "ios": "npx cap sync ios && npx cap open ios",
-        "test": "nx test"
+        "test": "nx test",
+        "codegen": "amplify codegen",
+        "postcodegen": "npx prettier --write src/graphql && npx prettier --write src/app/API.service.ts"
     },
     "private": true,
     "dependencies": {
