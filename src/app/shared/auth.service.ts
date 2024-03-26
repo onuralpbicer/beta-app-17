@@ -120,6 +120,6 @@ export class AuthService {
 
     public async getUserId() {
         const user = await this.getCurrentUser()
-        return user.username
+        return user.userId
     }
 }

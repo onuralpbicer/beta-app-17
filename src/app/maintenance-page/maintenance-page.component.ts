@@ -31,8 +31,12 @@ import {
     IonSpinner,
     IonInput,
     IonSegment,
+    NavController,
 } from '@ionic/angular/standalone'
 import { TripleSelectorComponent } from '../triple-selector/triple-selector.component'
+import { ToastService } from '../shared/toast.service'
+import { MESSAGES } from '../shared/messages'
+import { DatastoreService } from '../shared/datastore.service'
 
 @Component({
     selector: 'beta-app-maintenance-page',
@@ -62,6 +66,9 @@ import { TripleSelectorComponent } from '../triple-selector/triple-selector.comp
 export class MaintenancePageComponent implements OnInit, OnDestroy {
     private equipmentsService = inject(EquipmentsService)
     private fb = inject(FormBuilder)
+    private toastService = inject(ToastService)
+    private datastoreService = inject(DatastoreService)
+    private navController = inject(NavController)
 
     @Input() equipmentId!: string
     @Input() equipmentTypeId!: string
@@ -133,12 +140,27 @@ export class MaintenancePageComponent implements OnInit, OnDestroy {
         })
     }
 
-    public submit() {
+    public async submit() {
         if (this.form.invalid || this.submitting()) {
             return
         }
 
-        // this.submitting.set(true)
+        this.submitting.set(true)
+        try {
+            this.datastoreService.createMaintenance(this.equipmentId, {
+                maintenanceType: this.form.value.type as string,
+                tasks: JSON.stringify(this.form.value.maintenanceTasks ?? []),
+                comments: this.form.value.comments,
+            })
+
+            this.toastService.showSuccessToast(MESSAGES.submitSuccess)
+            this.navController.back()
+        } catch (e) {
+            this.toastService.showErrorToast(MESSAGES.submitFail)
+        } finally {
+            this.submitting.set(false)
+        }
+
         console.log('data', this.form.value)
     }
 }
