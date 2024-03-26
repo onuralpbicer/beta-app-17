@@ -4,6 +4,7 @@ import {
     IEquipmentTypeListFields,
     IContentfulContent,
     IEquipmentTypeFields,
+    IEquipmentTypeEntry,
 } from './contentful'
 import { isNil, merge, pick } from 'rambda'
 import { ListPage } from './model'
@@ -13,6 +14,10 @@ import { ListPage } from './model'
 })
 export class EquipmentsService {
     private syncService = inject(SyncService)
+
+    async getEquipmentType(id: string): Promise<IEquipmentTypeEntry> {
+        return this.syncService.getEntry<IEquipmentTypeFields>(id)
+    }
 
     async getEquipmentList(
         id: string = IContentfulContent.EquipmentTypeList,

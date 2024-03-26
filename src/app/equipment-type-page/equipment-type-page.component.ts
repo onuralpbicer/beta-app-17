@@ -49,16 +49,22 @@ export class EquipmentTypePageComponent implements OnInit {
         return (
             this.entry()?.items?.map((item) => ({
                 ...item,
-                href: '/equipment/' + item.link,
+                href:
+                    '/equipment-type/' +
+                    this.equipmentTypeId +
+                    '/equipment/' +
+                    item.link,
             })) ?? []
         )
     })
 
-    @Input() id!: string
+    @Input() equipmentTypeId!: string
 
     async ngOnInit() {
         this.isLoading.set(true)
-        const entry = await this.equipmentsService.getEquipmentList(this.id)
+        const entry = await this.equipmentsService.getEquipmentList(
+            this.equipmentTypeId,
+        )
 
         this.entry.set(entry)
         this.isLoading.set(false)

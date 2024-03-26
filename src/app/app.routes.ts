@@ -43,49 +43,63 @@ export const appRoutes: Route[] = [
         canActivate: [authGuard],
         children: [
             {
-                path: ':id',
-                loadComponent: () =>
-                    import(
-                        './equipment-type-page/equipment-type-page.component'
-                    ).then((m) => m.EquipmentTypePageComponent),
-            },
-            {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: '/',
-            },
-        ],
-    },
-    {
-        path: 'equipment',
-        canActivate: [authGuard],
-        children: [
-            {
-                path: ':id',
+                path: ':equipmentTypeId',
                 children: [
                     {
                         path: '',
+
                         loadComponent: () =>
                             import(
-                                './equipment-page/equipment-page.component'
-                            ).then((m) => m.EquipmentPageComponent),
+                                './equipment-type-page/equipment-type-page.component'
+                            ).then((m) => m.EquipmentTypePageComponent),
                     },
                     {
-                        path: 'maintenance',
+                        path: 'equipment',
+                        canActivate: [authGuard],
                         children: [
                             {
-                                path: '',
-                                loadComponent: () =>
-                                    import(
-                                        './maintenance-page/maintenance-page.component'
-                                    ).then((m) => m.MaintenancePageComponent),
+                                path: ':equipmentId',
+                                children: [
+                                    {
+                                        path: '',
+                                        loadComponent: () =>
+                                            import(
+                                                './equipment-page/equipment-page.component'
+                                            ).then(
+                                                (m) => m.EquipmentPageComponent,
+                                            ),
+                                    },
+                                    {
+                                        path: 'maintenance',
+                                        children: [
+                                            {
+                                                path: '',
+                                                loadComponent: () =>
+                                                    import(
+                                                        './maintenance-page/maintenance-page.component'
+                                                    ).then(
+                                                        (m) =>
+                                                            m.MaintenancePageComponent,
+                                                    ),
+                                            },
+                                            {
+                                                path: 'maintenanceId',
+                                                loadComponent: () =>
+                                                    import(
+                                                        './maintenance-page/maintenance-page.component'
+                                                    ).then(
+                                                        (m) =>
+                                                            m.MaintenancePageComponent,
+                                                    ),
+                                            },
+                                        ],
+                                    },
+                                ],
                             },
                             {
-                                path: 'maintenanceId',
-                                loadComponent: () =>
-                                    import(
-                                        './maintenance-page/maintenance-page.component'
-                                    ).then((m) => m.MaintenancePageComponent),
+                                path: '',
+                                pathMatch: 'full',
+                                redirectTo: '/',
                             },
                         ],
                     },

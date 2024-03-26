@@ -6,4 +6,79 @@
         <ion-title> Yeni bakım </ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content [forceOverscroll]="false" class="ion-padding"></ion-content>
+<ion-content [forceOverscroll]="false" class="ion-padding" [formGroup]="form">
+    <h2>Bakım Bilgileri</h2>
+    <div
+        class="task"
+        [class.touched]="form.controls.type.touched"
+        [class.valid]="form.controls.type.valid"
+    >
+        <ion-select
+            label="Bakim Tipi"
+            labelPlacement="stacked"
+            placeholder="Bakim tipini secin"
+            formControlName="type"
+        >
+            <ion-select-option value="Periyodik">Periyodik</ion-select-option>
+            <ion-select-option value="Arıza">Arıza</ion-select-option>
+        </ion-select>
+    </div>
+    <h2>Yapılacak İşler</h2>
+    <ng-container formArrayName="maintenanceTasks">
+        <ng-container
+            *ngFor="let task of maintenanceTasks.controls; let i = index"
+            [formGroupName]="i"
+        >
+            <div
+                class="task"
+                [class.touched]="task.touched"
+                [class.valid]="task.valid"
+            >
+                <div class="task-header">
+                    <h4>{{ i + 1 }}. {{ task.value.name }}</h4>
+
+                    <beta-app-triple-selector formControlName="uygun" />
+                </div>
+
+                <ion-segment
+                    formControlName="yapilanIs"
+                    *ngIf="task.value.uygun === false"
+                >
+                    <ion-segment-button value="Onarıldı">
+                        <ion-label>Onarıldı</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="Yenilendi">
+                        <ion-label>Yenilendi</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+
+                <ion-input
+                    formControlName="description"
+                    label="Açıklama"
+                    labelPlacement="stacked"
+                ></ion-input>
+            </div>
+        </ng-container>
+    </ng-container>
+
+    <div class="task">
+        <ion-input
+            formControlName="comments"
+            [formControl]="form.controls.comments"
+            label="Yorum"
+            labelPlacement="stacked"
+        ></ion-input>
+    </div>
+
+    <ion-button
+        (click)="submit()"
+        expand="block"
+        [disabled]="form.invalid || submitting()"
+    >
+        <ion-spinner
+            *ngIf="submitting(); else buttonText"
+            name="lines-sharp-small"
+        ></ion-spinner>
+        <ng-template #buttonText> Gönder </ng-template>
+    </ion-button>
+</ion-content>

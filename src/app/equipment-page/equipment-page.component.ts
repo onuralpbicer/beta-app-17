@@ -62,7 +62,8 @@ export class EquipmentPageComponent implements OnInit {
     public isLoading = signal(true)
     public entry = signal<IEquipment | undefined>(undefined)
 
-    @Input() id!: string
+    @Input() equipmentId!: string
+    @Input() equipmentTypeId!: string
 
     async ngOnInit() {
         this.initEquipment()
@@ -71,7 +72,9 @@ export class EquipmentPageComponent implements OnInit {
 
     async initEquipment() {
         this.isLoading.set(true)
-        const entry = await this.equipmentsService.getEquipment(this.id)
+        const entry = await this.equipmentsService.getEquipment(
+            this.equipmentId,
+        )
         console.log(entry)
 
         this.entry.set(entry)
@@ -80,7 +83,9 @@ export class EquipmentPageComponent implements OnInit {
 
     async initMaintenances() {
         this.maintenanceLoading.set(true)
-        const list = await this.datastoreService.listMaintenances(this.id)
+        const list = await this.datastoreService.listMaintenances(
+            this.equipmentId,
+        )
         console.log(list)
 
         this.maintenanceList.set(list.data.listMaintenances.items)
@@ -88,7 +93,13 @@ export class EquipmentPageComponent implements OnInit {
     }
 
     goToMaintenance(maintenanceId?: Maintenance['maintenanceId']) {
-        const navigate = ['equipment', this.id, 'maintenance']
+        const navigate = [
+            'equipment-type',
+            this.equipmentTypeId,
+            'equipment',
+            this.equipmentId,
+            'maintenance',
+        ]
         if (maintenanceId) {
             navigate.push(maintenanceId)
         }

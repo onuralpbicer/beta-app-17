@@ -34,6 +34,7 @@ export interface IEquipmentTypeFields {
             EntrySkeletonType<IBaseEquipmentFields<IEquipmentTypes>>
         >
     >
+    maintenanceTasks: EntryFieldTypes.Array<EntryFieldTypes.Symbol<string>>
 }
 
 export type IEquipmentTypeEntry = IContentfulEntry<IEquipmentTypeFields>
