@@ -16,6 +16,7 @@ import {
     IonButton,
     IonIcon,
     ViewDidEnter,
+    IonSpinner,
 } from '@ionic/angular/standalone'
 import { IEquipment, IEquipmentTypes } from '../shared/contentful'
 import { RoofFanEquipmentComponent } from '../roof-fan-equipment/roof-fan-equipment.component'
@@ -48,6 +49,7 @@ addIcons({
         IonList,
         RoofFanEquipmentComponent,
         ListItemComponent,
+        IonSpinner,
     ],
     templateUrl: './equipment-page.component.html',
     styleUrl: './equipment-page.component.scss',
@@ -57,7 +59,7 @@ export class EquipmentPageComponent implements OnInit, ViewDidEnter {
     private datastoreService = inject(DatastoreService)
     private navController = inject(NavController)
 
-    public maintenanceLoading = signal(false)
+    public maintenanceLoading = signal(true)
     public maintenanceList = signal(
         [] as (Pick<Maintenance, 'createdAt'> & { href: string })[],
     )

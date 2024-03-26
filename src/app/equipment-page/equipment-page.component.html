@@ -34,12 +34,12 @@
         } } }
     </ion-list>
     <h2>Bakım Formları</h2>
-    @if(maintenanceLoading()) { Loading... } @else {
-    <!-- TODO -->
-    @for(maintenance of maintenanceList(); track maintenance.href ) {
+    @if(maintenanceLoading()) {
+    <ion-spinner name="dots" />
+    } @else { @for(maintenance of maintenanceList(); track maintenance.href ) {
     <beta-app-list-item
         [name]="maintenance.createdAt"
         [href]="maintenance.href"
     />
-    } @empty { list is empty } }
+    } @empty { Liste boş } }
 </ion-content>
