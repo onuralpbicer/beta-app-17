@@ -32,6 +32,7 @@ import {
     IonInput,
     IonSegment,
     NavController,
+    IonSkeletonText,
 } from '@ionic/angular/standalone'
 import { TripleSelectorComponent } from '../triple-selector/triple-selector.component'
 import { ToastService } from '../shared/toast.service'
@@ -59,6 +60,7 @@ import { DatastoreService } from '../shared/datastore.service'
         IonSpinner,
         IonInput,
         TripleSelectorComponent,
+        IonSkeletonText,
     ],
     templateUrl: './maintenance-page.component.html',
     styleUrl: './maintenance-page.component.scss',

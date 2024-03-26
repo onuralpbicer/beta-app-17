@@ -8,6 +8,10 @@
 </ion-header>
 <ion-content [forceOverscroll]="false" class="ion-padding" [formGroup]="form">
     <h2>Bakım Bilgileri</h2>
+    @if (isLoading()) {
+    <ion-skeleton-text style="width: 30%" />
+    <ion-skeleton-text />
+    } @else {
     <div
         class="task"
         [class.touched]="form.controls.type.touched"
@@ -21,9 +25,7 @@
             placeholder="Bakim tipini secin"
             formControlName="type"
         />
-
         } @else {
-
         <ion-select
             label="Bakim Tipi"
             labelPlacement="stacked"
@@ -35,6 +37,7 @@
         </ion-select>
         }
     </div>
+    }
     <h2>Yapılacak İşler</h2>
     <ng-container formArrayName="maintenanceTasks">
         <ng-container
@@ -49,8 +52,18 @@
                 <div class="task-header">
                     <h4>{{ i + 1 }}. {{ task.value.name }}</h4>
 
+                    @if (isLoading()) {
+                    <ion-skeleton-text style="width: 50%; margin: auto" />
+                    } @else {
                     <beta-app-triple-selector formControlName="uygun" />
+
+                    }
                 </div>
+
+                @if (isLoading()) {
+                <ion-skeleton-text />
+                <ion-skeleton-text />
+                } @else {
 
                 <ion-segment
                     formControlName="yapilanIs"
@@ -70,10 +83,15 @@
                     label="Açıklama"
                     labelPlacement="stacked"
                 ></ion-input>
+                }
             </div>
         </ng-container>
     </ng-container>
 
+    @if (isLoading()) {
+    <ion-skeleton-text class="ion-margin-top" />
+    <ion-skeleton-text />
+    } @else {
     <div class="task">
         <ion-input
             [readonly]="viewonly"
@@ -83,7 +101,9 @@
             labelPlacement="stacked"
         ></ion-input>
     </div>
+    }
 
+    <!--  -->
     @if (!viewonly) {
     <ion-button
         (click)="submit()"
