@@ -1,4 +1,4 @@
-import { Component, forwardRef } from '@angular/core'
+import { Component, Input, forwardRef } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SegmentCustomEvent, SegmentValue } from '@ionic/angular'
 import { NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms'
@@ -37,6 +37,8 @@ addIcons({
     ],
 })
 export class TripleSelectorComponent {
+    @Input() readonly = false
+
     public value: SegmentValue | null = null
     public disabled = false
 

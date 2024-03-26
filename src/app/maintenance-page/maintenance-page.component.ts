@@ -72,6 +72,11 @@ export class MaintenancePageComponent implements OnInit, OnDestroy {
 
     @Input() equipmentId!: string
     @Input() equipmentTypeId!: string
+    @Input() maintenanceId!: string
+
+    get viewonly() {
+        return Boolean(this.maintenanceId)
+    }
     public isLoading = signal(true)
     public submitting = signal(false)
 
@@ -97,6 +102,10 @@ export class MaintenancePageComponent implements OnInit, OnDestroy {
         )
         this.initialiseForm(equipmentType.fields.maintenanceTasks)
 
+        if (this.viewonly) {
+            await this.initialiseMaintenance()
+        }
+
         this.isLoading.set(false)
     }
 
@@ -104,6 +113,28 @@ export class MaintenancePageComponent implements OnInit, OnDestroy {
         this.formSubscriptions.forEach((subscription) =>
             subscription.unsubscribe(),
         )
+    }
+
+    public async initialiseMaintenance() {
+        const maintenance = await this.datastoreService.getMaintenance(
+            this.equipmentId,
+            this.maintenanceId,
+        )
+
+        const tasks: IMaintenanceTask[] = JSON.parse(maintenance?.tasks ?? '[]')
+
+        console.log(tasks)
+        this.form.reset({
+            type: maintenance?.maintenanceType,
+            comments: maintenance?.comments,
+        })
+        this.form.controls.maintenanceTasks.controls.forEach(
+            (control, index) => {
+                control.reset(tasks[index])
+                control.disable()
+            },
+        )
+        this.form.disable()
     }
 
     public initialiseForm(maintenanceTasks: string[]) {

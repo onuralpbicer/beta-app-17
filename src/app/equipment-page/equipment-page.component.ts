@@ -15,6 +15,7 @@ import {
     NavController,
     IonButton,
     IonIcon,
+    ViewDidEnter,
 } from '@ionic/angular/standalone'
 import { IEquipment, IEquipmentTypes } from '../shared/contentful'
 import { RoofFanEquipmentComponent } from '../roof-fan-equipment/roof-fan-equipment.component'
@@ -22,6 +23,7 @@ import { DatastoreService } from '../shared/datastore.service'
 import { Maintenance } from '../API.service'
 import { addIcons } from 'ionicons'
 import { addOutline } from 'ionicons/icons'
+import { ListItemComponent } from '../list-item/list-item.component'
 
 addIcons({
     addOutline,
@@ -45,17 +47,20 @@ addIcons({
         IonLabel,
         IonList,
         RoofFanEquipmentComponent,
+        ListItemComponent,
     ],
     templateUrl: './equipment-page.component.html',
     styleUrl: './equipment-page.component.scss',
 })
-export class EquipmentPageComponent implements OnInit {
+export class EquipmentPageComponent implements OnInit, ViewDidEnter {
     private equipmentsService = inject(EquipmentsService)
     private datastoreService = inject(DatastoreService)
     private navController = inject(NavController)
 
     public maintenanceLoading = signal(false)
-    public maintenanceList = signal([] as Maintenance[])
+    public maintenanceList = signal(
+        [] as (Pick<Maintenance, 'createdAt'> & { href: string })[],
+    )
 
     public readonly IEquipmentTypes = IEquipmentTypes
 
@@ -67,6 +72,9 @@ export class EquipmentPageComponent implements OnInit {
 
     async ngOnInit() {
         this.initEquipment()
+    }
+
+    async ionViewDidEnter() {
         this.initMaintenances()
     }
 
@@ -88,7 +96,18 @@ export class EquipmentPageComponent implements OnInit {
         )
         console.log(list)
 
-        this.maintenanceList.set(list.data.listMaintenances.items)
+        this.maintenanceList.set(
+            list.data.listMaintenances.items.map((item) => ({
+                createdAt: item.createdAt,
+                href:
+                    '/equipment-type/' +
+                    this.equipmentTypeId +
+                    '/equipment/' +
+                    this.equipmentId +
+                    '/maintenance/' +
+                    item.maintenanceId,
+            })),
+        )
         this.maintenanceLoading.set(false)
     }
 

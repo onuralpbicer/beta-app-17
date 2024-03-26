@@ -1,7 +1,7 @@
 <ion-segment
     [value]="value"
     (ionChange)="handleChange($event)"
-    [disabled]="disabled"
+    [disabled]="disabled || readonly"
 >
     <ion-segment-button class="true" [value]="true">
         <ion-icon name="checkmark-outline" />

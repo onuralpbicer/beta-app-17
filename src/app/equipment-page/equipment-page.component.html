@@ -36,6 +36,10 @@
     <h2>Bakım Formları</h2>
     @if(maintenanceLoading()) { Loading... } @else {
     <!-- TODO -->
-    @for(maintenance of maintenanceList(); track maintenance.maintenanceId ) {
-    render list } @empty { list is empty } }
+    @for(maintenance of maintenanceList(); track maintenance.href ) {
+    <beta-app-list-item
+        [name]="maintenance.createdAt"
+        [href]="maintenance.href"
+    />
+    } @empty { list is empty } }
 </ion-content>

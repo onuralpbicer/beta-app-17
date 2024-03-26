@@ -5,6 +5,7 @@ import { Maintenance } from '../API.service'
 import { createMaintenance } from 'src/graphql/mutations'
 import { v4 as uuid } from 'uuid'
 import { AuthService } from './auth.service'
+import { propEq } from 'rambda'
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +15,7 @@ export class DatastoreService {
 
     private client = generateClient<Maintenance>()
 
-    public async listMaintenances(equipmentId: string) {
+    public async listMaintenances(equipmentId: Maintenance['equipmentId']) {
         return this.client.graphql({
             query: listMaintenances,
             variables: {
@@ -23,8 +24,24 @@ export class DatastoreService {
         })
     }
 
+    public async getMaintenance(
+        equipmentId: Maintenance['equipmentId'],
+        maintenanceId: Maintenance['maintenanceId'],
+    ) {
+        const maintenances = await this.client.graphql({
+            query: listMaintenances,
+            variables: {
+                equipmentId,
+            },
+        })
+
+        return maintenances.data.listMaintenances.items.find(
+            propEq(maintenanceId, 'maintenanceId'),
+        )
+    }
+
     public async createMaintenance(
-        equipmentId: string,
+        equipmentId: Maintenance['maintenanceId'],
         maintenance: Omit<
             Maintenance,
             | 'maintenanceId'

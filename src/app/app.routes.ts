@@ -83,7 +83,7 @@ export const appRoutes: Route[] = [
                                                     ),
                                             },
                                             {
-                                                path: 'maintenanceId',
+                                                path: ':maintenanceId',
                                                 loadComponent: () =>
                                                     import(
                                                         './maintenance-page/maintenance-page.component'

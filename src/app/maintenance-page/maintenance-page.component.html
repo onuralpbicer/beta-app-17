@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button />
         </ion-buttons>
-        <ion-title> Yeni bakım </ion-title>
+        <ion-title> {{ viewonly ? 'Bakım' : 'Yeni bakım' }} </ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content [forceOverscroll]="false" class="ion-padding" [formGroup]="form">
@@ -13,6 +13,17 @@
         [class.touched]="form.controls.type.touched"
         [class.valid]="form.controls.type.valid"
     >
+        @if (viewonly) {
+        <ion-input
+            [readonly]="viewonly"
+            label="Bakim Tipi"
+            labelPlacement="stacked"
+            placeholder="Bakim tipini secin"
+            formControlName="type"
+        />
+
+        } @else {
+
         <ion-select
             label="Bakim Tipi"
             labelPlacement="stacked"
@@ -22,6 +33,7 @@
             <ion-select-option value="Periyodik">Periyodik</ion-select-option>
             <ion-select-option value="Arıza">Arıza</ion-select-option>
         </ion-select>
+        }
     </div>
     <h2>Yapılacak İşler</h2>
     <ng-container formArrayName="maintenanceTasks">
@@ -53,6 +65,7 @@
                 </ion-segment>
 
                 <ion-input
+                    [readonly]="viewonly"
                     formControlName="description"
                     label="Açıklama"
                     labelPlacement="stacked"
@@ -63,6 +76,7 @@
 
     <div class="task">
         <ion-input
+            [readonly]="viewonly"
             formControlName="comments"
             [formControl]="form.controls.comments"
             label="Yorum"
@@ -70,6 +84,7 @@
         ></ion-input>
     </div>
 
+    @if (!viewonly) {
     <ion-button
         (click)="submit()"
         expand="block"
@@ -81,4 +96,5 @@
         ></ion-spinner>
         <ng-template #buttonText> Gönder </ng-template>
     </ion-button>
+    }
 </ion-content>
