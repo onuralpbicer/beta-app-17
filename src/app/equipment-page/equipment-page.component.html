@@ -33,7 +33,17 @@
         <div>test equipment</div>
         } } }
     </ion-list>
-    <h2>Bakım Formları</h2>
+    <div class="title-container">
+        <h2>Bakım Formları</h2>
+        <ion-button
+            (click)="goToMaintenance()"
+            shape="round"
+            fill="clear"
+            color="light"
+        >
+            <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+    </div>
     @if(maintenanceLoading()) {
     <ion-spinner name="dots" />
     } @else { @for(maintenance of maintenanceList(); track maintenance.href ) {
